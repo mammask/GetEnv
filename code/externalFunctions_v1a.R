@@ -170,32 +170,3 @@ produceMappingCharts <- function(uniqueComb_id) {
   }
   close(mypb)
 }
-
-manipulateData <- function(metVar_id,parallelDataUploadToPSQL){
-  
-  library(data.table)
-  library(RPostgreSQL)
-  
-  drv <- dbDriver("PostgreSQL")
-  con <- dbConnect(drv,host="localhost",port=5432,
-                   user="postgres",password="analytics")
-  
-  dbGetQuery(conn = con, statement = paste0("DROP TABLE IF EXISTS \"",metVar_id,"\";"))
-  cat("Delete any previous database record from database ",metVar_id,"\n")
-  cat("Currently re-creating database for meteorological variable", metVar_id,"\n")
-  
-  dbDisconnect(con)
-  
-  tempDownloadPath <-  linkMap[VarName==metVar_id,downloadDatPath]
-  dataFileNames <- list.files(tempDownloadPath, pattern=".txt")
-  dataFileNames <- dataFileNames[!dataFileNames %in% 
-                                   c("elements.txt", "sources.txt","stations.txt")]
-  
-  dataFileNamesMap <- data.table(FileName=dataFileNames)
-  
-  splits <-  ceiling(nrow(dataFileNamesMap)/NumCores)
-  dataFileNamesMap[,Core:=rep(1:NumCores, each=splits)[1:nrow(dataFileNamesMap)]]
-  cat("Currently each core is responsible for uploading",splits,"files of",metVar_id,"variable\n")
-  
-  foreach(core_id=1:NumCores, .verbose = TRUE) %dopar% parallelDataUploadToPSQL(core_id,dataFileNamesMap,tempDownloadPath,metVar_id)
-}
