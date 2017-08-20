@@ -1,4 +1,4 @@
-README
+ECADownloader Description
 ================
 Kostas Mammas, Statistical Programmer <br> mail: <mammaskon@gmail.com> <br>
 
@@ -28,7 +28,7 @@ User instructions
 
 The following steps need to be followed:
 
-1.  The user has to define the working directory
+1.  Set up the working directory
 2.  Define number of cores. The number of cores should not exceed the number of the environmental variables
 3.  Define the meteorological variables to download:
 

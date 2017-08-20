@@ -26,7 +26,7 @@
 #
 # ----------------------------------------------------------------------------#
 ## Define working directory
-currPath <- "~/Documents/ECADownloader/code/"
+currPath <- "~/Documents/ECADownloader"
 setwd(currPath)
 ## Load Important libraries 
 
@@ -46,7 +46,7 @@ blended <- TRUE  ## Define if dataset will be blended or nonblended
 # ----------------------------------------------------------------------------#
 
 ## Define current working directory - Load Supporting Functions
-source("./externalFunctions_v1a.R")
+source("./code/externalFunctions_v1a.R")
 # ----------------------------------------------------------------------------#
 
 ## Define meteorological variables to download
