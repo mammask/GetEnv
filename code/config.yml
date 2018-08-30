@@ -39,7 +39,3 @@ database_config:
   to_sql:        "postgresql"
   port:          5432
   driver:        "PostgreSQL"
-  
-directories:
-  current_directory: "/Users/konstantinos.mammas/Documents/ECAD/code"
-  

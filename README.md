@@ -1,57 +1,61 @@
 ECADownloader Description
 ================
-Kostas Mammas, Statistical Programmer <br> mail: <mammaskon@gmail.com> <br>
-
--   [Introduction](#introduction)
--   [User instructions](#user-instructions)
+Kostas Mammas, Data Scientist <br> mail: <mammaskon@gmail.com> <br>
 
 Introduction
 ============
 
-**ECADownloader** is an `R` interface for downloading data from [www.ecad.eu](www.ecad.eu). Using the interface of the tool the user is able to download dynamically the daily records of the following environmmental variables and save it locally:
+**ECADownloader** is an `R` interface for downloading data from [www.ecad.eu](www.ecad.eu). Using the interface of the tool the user is able to download dynamically the daily records of a set of environmmental variables and save them locally.
 
--   Daily Max Temerature
--   Daily Mean Temperature
--   Daily Mean Temperature
--   Daily Precipitation Amount
--   Daily Mean Sea Level Pressure
--   Daily Cloud Cover
--   Daily Humidity
--   Daily Snow Depth
--   Daily Sunshine Duration
--   Daily Mean Wind Speed
--   Daily Max Wind Gust
--   Daily Wind Direction
+All the parameterizations of the tool are made through the config.yml file. The package is integrated with a postgresql database (other SQL languages are supported also). The following parameters can be adjusted:
 
-User instructions
-=================
+```yaml
+# Default Parameters
+default:
+  num_cores:      4              # Number of cores
+  blended:        FALSE          # Blended or non blended series
+  schema_name:    "tran_ler"     # Name of database schema
+  drop_schema:    TRUE           # Drop old schema
+  create_schema:  TRUE           # Create new schema
+  download_data:  TRUE           # Download data
+  create_empty_tables: TRUE      # Create empty meteorological tables
 
-The following steps need to be followed:
+# Available Meteorological Indices
+indices:
+  DailyMaxTemp:         FALSE
+  DailyMinTemp:         FALSE
+  DailyMeanTemp:        FALSE      
+  DailyPrecipAmount:    TRUE  
+  DailyMeanSeaLVLPress: FALSE
+  DailyCloudCover:      FALSE
+  DailyHumid:           TRUE
+  DailySnowDepth:       FALSE
+  DailySunShineDur:     FALSE
+  DailyMeanWindSpeed:   FALSE
+  DailyMaxWindGust:     FALSE
+  DailyWindDirection:   TRUE
 
-1.  Set up the working directory
-2.  Define number of cores. The number of cores should not exceed the number of the environmental variables
-3.  Define the meteorological variables to download:
+# Required packages; if not installed already then automatic installation will be performed
+packages: ["data.table", "shiny", "shinythemes", "DT",
+           "plotly", "RPostgreSQL", "dygraphs", "stringr",
+           "shiny", "shinydashboard", "RColorBrewer", "plotly",
+           "reshape2","yaml","markdown","rmarkdown", "gsubfn",
+           "tableHTML", "SqlRender", "htmltools","config", 
+           "foreach", "doParallel", "DBI", "RODBC"
+          ]
 
-The following script downloads only the first 2 environmental variables; Daily Maximum Temperature & Dauliy Minimum Temperature.
-
-``` r
-## Define meteorological variables to download
-metVar <- data.table(metVar = c("DailyMaxTemp", "DailyMinTemp",
-                                "DailyMeanTemp", "DailyPrecipAmount",
-                                "DailyMeanSeaLVLPress","DailyCloudCover",
-                                "DailyHumid", "DailySnowDepth", 
-                                "DailySunShineDur","DailyMeanWindSpeed",
-                                "DailyMaxWindGust","DailyWindDirection"),
-                     Include = c("yes",
-                                 "yes",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no",
-                                 "no"))
+# Database configuaratopns
+database_config:
+  type:          "postgresql"
+  username:      "username"
+  password:      "password"
+  database_name: "meteo_data"
+  localhost:     "localhost"
+  from_sql:      "postgresql"
+  to_sql:        "postgresql"
+  port:          5432
 ```
+
+Running ECADownloader
+============
+
