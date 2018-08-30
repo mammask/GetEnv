@@ -60,4 +60,4 @@ Also, the path of the main file has to be defined.
 
 Running ECADownloader
 ============
-
+![image](https://github.com/mammask/ECADownloader/blob/master/img/screenshot.png?raw=true)
