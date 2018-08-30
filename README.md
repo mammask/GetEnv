@@ -61,6 +61,6 @@ Also, the path of the main file has to be defined.
 Running ECADownloader
 ============
 
-In command line, set the current path to the path of the code folder and run ```shell Rscript main.R```:
+In command line, set the current path to the path of the code folder and run ```Rscript main.R```:
 
 ![](https://github.com/mammask/ECADownloader/blob/master/img/screenshot.gif?raw=true)
