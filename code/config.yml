@@ -1,0 +1,45 @@
+default:
+  num_cores:      4
+  blended:        FALSE
+  schema_name:    "tran_ler"
+  drop_schema:    TRUE
+  create_schema:  TRUE
+  download_data:  FALSE
+  create_empty_tables: TRUE
+
+indices:
+  DailyMaxTemp:         FALSE
+  DailyMinTemp:         FALSE
+  DailyMeanTemp:        FALSE      
+  DailyPrecipAmount:    TRUE  
+  DailyMeanSeaLVLPress: FALSE
+  DailyCloudCover:      FALSE
+  DailyHumid:           TRUE
+  DailySnowDepth:       FALSE
+  DailySunShineDur:     FALSE
+  DailyMeanWindSpeed:   FALSE
+  DailyMaxWindGust:     FALSE
+  DailyWindDirection:   TRUE
+
+packages: ["data.table", "shiny", "shinythemes", "DT",
+           "plotly", "RPostgreSQL", "dygraphs", "stringr",
+           "shiny", "shinydashboard", "RColorBrewer", "plotly",
+           "reshape2","yaml","markdown","rmarkdown", "gsubfn",
+           "tableHTML", "SqlRender", "htmltools","config", 
+           "foreach", "doParallel", "DBI", "RODBC"
+          ]
+
+database_config:
+  type:          "postgresql"
+  username:      "konstantinos.mammas"
+  password:      ""
+  database_name: "meteo_data"
+  localhost:     "localhost"
+  from_sql:      "postgresql"
+  to_sql:        "postgresql"
+  port:          5432
+  driver:        "PostgreSQL"
+  
+directories:
+  current_directory: "/Users/konstantinos.mammas/Documents/ECAD/code"
+  
