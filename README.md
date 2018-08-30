@@ -56,6 +56,8 @@ database_config:
   port:          5432
 ```
 
+Also, the path of the main file has to be defined.
+
 Running ECADownloader
 ============
 
