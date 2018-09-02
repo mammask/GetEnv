@@ -1,25 +1,25 @@
 default:
-  num_cores:      4
+  num_cores:      6
   blended:        FALSE
   schema_name:    "tran_ler"
   drop_schema:    TRUE
   create_schema:  TRUE
-  download_data:  FALSE
+  download_data:  TRUE
   create_empty_tables: TRUE
 
 indices:
   DailyMaxTemp:         FALSE
   DailyMinTemp:         FALSE
-  DailyMeanTemp:        FALSE      
-  DailyPrecipAmount:    TRUE  
+  DailyMeanTemp:        TRUE     
+  DailyPrecipAmount:    TRUE
   DailyMeanSeaLVLPress: FALSE
-  DailyCloudCover:      FALSE
+  DailyCloudCover:      TRUE
   DailyHumid:           TRUE
   DailySnowDepth:       FALSE
-  DailySunShineDur:     FALSE
+  DailySunShineDur:     TRUE
   DailyMeanWindSpeed:   FALSE
   DailyMaxWindGust:     FALSE
-  DailyWindDirection:   TRUE
+  DailyWindDirection:   FALSE
 
 packages: ["data.table", "shiny", "shinythemes", "DT",
            "plotly", "RPostgreSQL", "dygraphs", "stringr",

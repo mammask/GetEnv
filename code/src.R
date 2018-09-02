@@ -170,13 +170,43 @@ CreateTablesScripts <- function(Index, ID, schemaID){
   scriptID <- paste0("CREATE TABLE ",schemaID,".",Index," (
                      STAID INTEGER,
                      SOUID INTEGER,
-                     DATE TIMESTAMP WITHOUT TIME ZONE,
-                     ",ID," NUMERIC,
+                     DATE INTEGER,
+                     ",ID," INTEGER,
                      Q_",ID," INTEGER
   )
                      ")
   
   return(scriptID)
+}
+
+
+UploadFiles <- function(con, config, tableID, pathID, fileID){
+  
+  print(fileID)
+  scriptID <- paste0("COPY  ",config[["default"]]["schema_name"],".",tolower(tableID)," FROM PROGRAM 'tail -n +21 ",paste0(pathID,"/",fileID),"'  DELIMITER ',';")
+  dbSendQuery(con,scriptID)
+  
+}
+
+ParallelUploadData <- function(config, coreID, uploadMapper, UploadFiles){
+  
+  library(RODBC)
+  library(DBI)
+  library(odbc)
+  library(RPostgreSQL)
+  library(data.table)
+  
+  drv <- dbDriver("PostgreSQL")
+  con <- DBI::dbConnect(drv = drv,
+                        dbname = "meteo_data",
+                        user    = "konstantinos.mammas",
+                        password    = "",
+                        host = "localhost",
+                        port = 5432)
+  
+  temp <- copy(uploadMapper[Core == coreID])
+  temp[, list(list(UploadFiles(con, config, varname, downloaddatapath, fileID))), by =Counter]
+  
 }
 
 

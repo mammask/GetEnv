@@ -1,7 +1,5 @@
 #  script: main.R
 #  purpose: download environmental data and create a relational database table
-# Get Current Path
-setwd("~/Documents/ECAD/ECADownloader/code")
 
 # Source functions
 source("src.R")
@@ -33,7 +31,7 @@ mapFile       <- copy(mapFile[Status == TRUE])
 
 # Compute Number of Splits
 numCores <- min(config[["default"]][["num_cores"]], mapFile[, .N])
-cat("Number of core(s):",numCores)
+cat("Number of core(s):",numCores,"\n")
 
 splits   <- ceiling(mapFile[, .N]/ min(c(numCores, mapFile[, .N])))
 mapFile[,Core:=rep(1:numCores, each=splits)]
@@ -59,13 +57,12 @@ linkMap <- copy(prepareDB(config,
                           dropSchema     = config[["default"]][["drop_schema"]],
                           createSchema   = config[["default"]][["create_schema"]],
                           createEmptyTbl = config[["default"]][["create_empty_tables"]])
-                )
+)
 
 # Get Stations Information
-mappingTotal <- list()
 totalMap <- lapply(mapFile[,Index],ManipulateMapping)
 totalMap <- rbindlist(totalMap)
-setnames(totalMap, tolower(names(totalMap)))
+setnames(totalMap, c("souid","souname","cn","latupd","lonupd","latlong","start","stop","metvar"))
 
 # Upload stations 
 dbWriteTable(conn  = conn,
@@ -73,10 +70,33 @@ dbWriteTable(conn  = conn,
              value = totalMap,
              overwrite = TRUE,
              row.names = F)
-
+setnames(linkMap, c("varname", "link", "map", "id", "downloaddatalink", "downloadstationlink","downloaddatapath","createtablescript"))
 dbWriteTable(conn  = conn,
              name  = c("tran_ler","links"),
              value = linkMap,
              overwrite = TRUE,
              row.names = F)
-cat("Uploaded variables information and links tables successfully\n")
+cat("Uploaded available variables and links tables successfully \n")
+
+# Prepare paths and variables
+uploadMapper <- copy(linkMap[varname %in% mapFile[,Index], 
+        
+        list(
+          fileID = list.files(path = downloaddatapath, pattern = paste0("^",id))
+        ),
+        by = list(varname,downloaddatapath, id)
+        ])
+
+# Parallelise Tasks
+uniqueComb <- uploadMapper[,.N]
+splits <-  ceiling(uniqueComb/config[["default"]][["num_cores"]])
+uploadMapper[,Core:=rep(1:config[["default"]][["num_cores"]], each=splits)[1:nrow(uploadMapper)]]
+uploadMapper[, Counter:= 1:.N]
+
+cl <- makeCluster(config[["default"]][["num_cores"]])
+registerDoParallel(cl)
+foreach(core_id=1:config[["default"]][["num_cores"]], .verbose = T, .packages=c("data.table")) %dopar%
+  ParallelUploadData(config, coreID = core_id, uploadMapper, UploadFiles)
+stopCluster(cl)
+
+
