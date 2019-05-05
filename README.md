@@ -12,6 +12,7 @@ All the parameterizations of the tool are made through the config.yml file. The 
 ```yaml
 # Default Parameters
 default:
+  operating_system: "WINDOWS"    # Operating system (LINUX, MACOS, WINDOWS)
   num_cores:      4              # Number of cores
   blended:        FALSE          # Blended or non blended series
   schema_name:    "tran_ler"     # Name of database schema
