@@ -1,11 +1,15 @@
 #  script: main.R
 #  purpose: download environmental data and create a relational database table
 
+# Define JAVA_HOME
+Sys.setenv(JAVA_HOME="C:\\Program Files\\Java\\jdk-11.0.3/") # for 64-bit version
+
 # Source functions
 source("src.R")
 source("srcSQL.R")
 
 # Load configurator library
+install.packages("configr")
 library(configr)
 config <- read.config(file ="config.yml")
 
@@ -15,7 +19,7 @@ systemPackages <- config[["packages"]]
 # Identify new packages
 newPackages <- systemPackages[!(systemPackages %in% installed.packages(lib.loc = .libPaths()[1])[,"Package"])]
 
-# Install new packages
+# Install new packages (if required)
 if(length(newPackages)) install.packages(newPackages)
 
 checkPackage <- lapply(systemPackages, require, character.only = TRUE, lib = .libPaths()[1], quietly = TRUE)

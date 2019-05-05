@@ -180,11 +180,25 @@ CreateTablesScripts <- function(Index, ID, schemaID){
 }
 
 
-UploadFiles <- function(con, config, tableID, pathID, fileID){
+UploadFiles <- function(con, config, tableID, pathID, fileID, operatingSys){
   
   print(fileID)
-  scriptID <- paste0("COPY  ",config[["default"]]["schema_name"],".",tolower(tableID)," FROM PROGRAM 'tail -n +21 ",paste0(pathID,"/",fileID),"'  DELIMITER ',';")
-  dbSendQuery(con,scriptID)
+  
+  if (operatingSys == "MACOS" | operatingSys == "LINUX"){
+    
+    scriptID <- paste0("COPY  ",config[["default"]]["schema_name"],".",tolower(tableID)," FROM PROGRAM 'tail -n +18 ",paste0(pathID,"/",fileID),"'  DELIMITER ',';")
+    dbSendQuery(con,scriptID)
+    
+  } else if (operatingSys == "WINDOWS")
+    
+    temp <- fread(paste0(pathID,"/",fileID), skip = 18)
+    setnames(temp, tolower(names(temp)))
+    dbWriteTable(con,
+                 tolower(tableID),
+                 temp,
+                 row.names=FALSE,
+                 append=TRUE
+                 )
   
 }
 
@@ -198,14 +212,14 @@ ParallelUploadData <- function(config, coreID, uploadMapper, UploadFiles){
   
   drv <- dbDriver("PostgreSQL")
   con <- DBI::dbConnect(drv = drv,
-                        dbname = "meteo_data",
-                        user    = "konstantinos.mammas",
-                        password    = "",
+                        dbname      = config[["default"]][["schema_name"]],
+                        user        = config[["database_config"]][["username"]],
+                        password    = config[["database_config"]][["password"]],
                         host = "localhost",
                         port = 5432)
   
   temp <- copy(uploadMapper[Core == coreID])
-  temp[, list(list(UploadFiles(con, config, varname, downloaddatapath, fileID))), by =Counter]
+  temp[, list(list(UploadFiles(con, config, varname, downloaddatapath, fileID, config[["default"]][["operating_system"]]))), by =Counter]
   
 }
 

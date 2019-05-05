@@ -1,22 +1,23 @@
 default:
+  operating_system: "WINDOWS"
   num_cores:      6
   blended:        FALSE
-  schema_name:    "tran_ler"
+  schema_name:    "postgres"
   drop_schema:    TRUE
   create_schema:  TRUE
-  download_data:  TRUE
+  download_data:  FALSE
   create_empty_tables: TRUE
 
 indices:
   DailyMaxTemp:         FALSE
   DailyMinTemp:         FALSE
-  DailyMeanTemp:        TRUE     
-  DailyPrecipAmount:    TRUE
+  DailyMeanTemp:        FALSE     
+  DailyPrecipAmount:    FALSE
   DailyMeanSeaLVLPress: FALSE
-  DailyCloudCover:      TRUE
+  DailyCloudCover:      FALSE
   DailyHumid:           TRUE
   DailySnowDepth:       FALSE
-  DailySunShineDur:     TRUE
+  DailySunShineDur:     FALSE
   DailyMeanWindSpeed:   FALSE
   DailyMaxWindGust:     FALSE
   DailyWindDirection:   FALSE
@@ -31,9 +32,9 @@ packages: ["data.table", "shiny", "shinythemes", "DT",
 
 database_config:
   type:          "postgresql"
-  username:      "konstantinos.mammas"
-  password:      ""
-  database_name: "meteo_data"
+  username:      "postgres"
+  password:      "postgres"
+  database_name: "postgres"
   localhost:     "localhost"
   from_sql:      "postgresql"
   to_sql:        "postgresql"
