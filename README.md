@@ -40,7 +40,7 @@ indices:
 # Required packages; if not installed already then automatic installation will be performed
 packages: ["data.table","RPostgreSQL", "stringr",
            "reshape2","yaml","markdown","rmarkdown", "gsubfn",
-           "SqlRender", "htmltools","foreach", "doParallel", "DBI", "RODBC"
+           "SqlRender", "htmltools","foreach", "doParallel", "DBI", "RODBC","odbc"
           ]
 
 # Database configuaratopns
