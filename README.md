@@ -1,4 +1,4 @@
-GetEnv Description
+GetEnv - Download Environmental Time Series Data
 ================
 Kostas Mammas, Data Scientist <br> mail: <mammaskon@gmail.com> <br>
 
