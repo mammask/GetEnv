@@ -70,13 +70,14 @@ setnames(totalMap, c("souid","souname","cn","latupd","lonupd","latlong","start",
 
 # Upload stations 
 dbWriteTable(conn  = conn,
-             name  = c("tran_ler","station"),
+             name  = c(config[["default"]][["schema_name"]],"station"),
              value = totalMap,
              overwrite = TRUE,
              row.names = F)
 setnames(linkMap, c("varname", "link", "map", "id", "downloaddatalink", "downloadstationlink","downloaddatapath","createtablescript"))
+
 dbWriteTable(conn  = conn,
-             name  = c("tran_ler","links"),
+             name  = c(config[["default"]][["schema_name"]],"links"),
              value = linkMap,
              overwrite = TRUE,
              row.names = F)

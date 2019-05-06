@@ -212,7 +212,7 @@ ParallelUploadData <- function(config, coreID, uploadMapper, UploadFiles){
   
   drv <- dbDriver("PostgreSQL")
   con <- DBI::dbConnect(drv = drv,
-                        dbname      = config[["default"]][["schema_name"]],
+                        dbname      = config[["database_config"]][["database_name"]],
                         user        = config[["database_config"]][["username"]],
                         password    = config[["database_config"]][["password"]],
                         host = "localhost",

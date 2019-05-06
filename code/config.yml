@@ -2,8 +2,8 @@ default:
   operating_system: "WINDOWS"
   num_cores:      6
   blended:        FALSE
-  schema_name:    "postgres"
-  drop_schema:    TRUE
+  schema_name:    "transfer"
+  drop_schema:    FALSE
   create_schema:  TRUE
   download_data:  FALSE
   create_empty_tables: TRUE
@@ -34,7 +34,7 @@ database_config:
   type:          "postgresql"
   username:      "postgres"
   password:      "postgres"
-  database_name: "postgres"
+  database_name: "meteo_data"
   localhost:     "localhost"
   from_sql:      "postgresql"
   to_sql:        "postgresql"
