@@ -38,12 +38,9 @@ indices:
   DailyWindDirection:   TRUE
 
 # Required packages; if not installed already then automatic installation will be performed
-packages: ["data.table", "shiny", "shinythemes", "DT",
-           "plotly", "RPostgreSQL", "dygraphs", "stringr",
-           "shiny", "shinydashboard", "RColorBrewer", "plotly",
+packages: ["data.table","RPostgreSQL", "stringr",
            "reshape2","yaml","markdown","rmarkdown", "gsubfn",
-           "tableHTML", "SqlRender", "htmltools","config", 
-           "foreach", "doParallel", "DBI", "RODBC"
+           "SqlRender", "htmltools","foreach", "doParallel", "DBI", "RODBC"
           ]
 
 # Database configuaratopns
