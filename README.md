@@ -1,4 +1,4 @@
-GetEnv - Download Environmental Time Series Data ![](https://github.com/mammask/GetEnv/blob/master/img/get-env.png)
+GetEnv - Download Environmental Time Series Data ![](https://github.com/mammask/GetEnv/blob/master/img/get-env.png = 20x20)
 ================
 Kostas Mammas, Data Scientist <br> mail: <mammaskon@gmail.com> <br>
 
