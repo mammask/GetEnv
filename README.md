@@ -62,4 +62,4 @@ Running GetEnv
 
 In command line, set the current path to the path of the code folder and run ```Rscript main.R```:
 
-![](https://github.com/mammask/ECADownloader/blob/master/img/screenshot2.gif?raw=true)
+![](https://github.com/mammask/GetEnv/blob/master/img/screenshot2.gif?raw=true)
