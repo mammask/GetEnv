@@ -1,11 +1,12 @@
-GetEnv - Download Environmental Time Series Data
+GetEnvTS - Download Environmental Time-Series Data
+<img src="https://github.com/mammask/GetEnv/blob/master/img/get-env.png" height="192px"/>
 ================
 Kostas Mammas, Data Scientist <br> mail: <mammaskon@gmail.com> <br>
 
 Introduction
 ============
 
-**GetEnv** is an `R` interface for downloading data from [www.ecad.eu](www.ecad.eu). Using the interface of the tool the user is able to download dynamically the daily records of a set of environmmental variables and save them locally on a relational database model.
+**GetEnvTS** is an `R` interface for downloading data from [www.ecad.eu](www.ecad.eu). Using the interface of the tool the user is able to download dynamically the daily records of a set of environmmental variables and save them locally on a relational database model.
 
 All the parameterizations of the tool are made through the config.yml file. The package is integrated with a postgresql database. The following parameters can be adjusted:
 
@@ -37,12 +38,9 @@ indices:
   DailyWindDirection:   TRUE
 
 # Required packages; if not installed already then automatic installation will be performed
-packages: ["data.table", "shiny", "shinythemes", "DT",
-           "plotly", "RPostgreSQL", "dygraphs", "stringr",
-           "shiny", "shinydashboard", "RColorBrewer", "plotly",
+packages: ["data.table","RPostgreSQL", "stringr",
            "reshape2","yaml","markdown","rmarkdown", "gsubfn",
-           "tableHTML", "SqlRender", "htmltools","config", 
-           "foreach", "doParallel", "DBI", "RODBC"
+           "SqlRender", "htmltools","foreach", "doParallel", "DBI", "RODBC","odbc"
           ]
 
 # Database configuaratopns
