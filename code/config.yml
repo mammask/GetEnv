@@ -1,26 +1,26 @@
 default:
   operating_system: "WINDOWS"
-  num_cores:      6
+  num_cores:      12
   blended:        FALSE
   schema_name:    "transfer"
-  drop_schema:    FALSE
+  drop_schema:    TRUE
   create_schema:  TRUE
   download_data:  FALSE
   create_empty_tables: TRUE
 
 indices:
-  DailyMaxTemp:         FALSE
-  DailyMinTemp:         FALSE
-  DailyMeanTemp:        FALSE     
-  DailyPrecipAmount:    FALSE
-  DailyMeanSeaLVLPress: FALSE
-  DailyCloudCover:      FALSE
+  DailyMaxTemp:         TRUE
+  DailyMinTemp:         TRUE
+  DailyMeanTemp:        TRUE     
+  DailyPrecipAmount:    TRUE
+  DailyMeanSeaLVLPress: TRUE
+  DailyCloudCover:      TRUE
   DailyHumid:           TRUE
-  DailySnowDepth:       FALSE
-  DailySunShineDur:     FALSE
-  DailyMeanWindSpeed:   FALSE
-  DailyMaxWindGust:     FALSE
-  DailyWindDirection:   FALSE
+  DailySnowDepth:       TRUE
+  DailySunShineDur:     TRUE
+  DailyMeanWindSpeed:   TRUE
+  DailyMaxWindGust:     TRUE
+  DailyWindDirection:   TRUE
 
 packages: ["data.table","RPostgreSQL", "stringr",
            "reshape2","yaml","markdown","rmarkdown", "gsubfn",

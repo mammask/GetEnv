@@ -170,7 +170,7 @@ CreateTablesScripts <- function(Index, ID, schemaID){
   scriptID <- paste0("CREATE TABLE ",schemaID,".",Index," (
                      STAID INTEGER,
                      SOUID INTEGER,
-                     DATE INTEGER,
+                     DATE DATE,
                      ",ID," INTEGER,
                      Q_",ID," INTEGER
   )
@@ -192,9 +192,10 @@ UploadFiles <- function(con, config, tableID, pathID, fileID, operatingSys){
   } else if (operatingSys == "WINDOWS")
     
     temp <- fread(paste0(pathID,"/",fileID), skip = 18)
+    temp[, DATE:= as.Date(paste0(substr(DATE, start = 1, stop = 4),"-",substr(DATE, start = 5, stop = 6),"-",substr(DATE, start = 7, stop = 8)), format = "%Y-%m-%d")]
     setnames(temp, tolower(names(temp)))
     dbWriteTable(con,
-                 tolower(tableID),
+                 c(config[["default"]][["schema_name"]],tolower(tableID)),
                  temp,
                  row.names=FALSE,
                  append=TRUE

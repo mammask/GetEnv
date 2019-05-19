@@ -2,7 +2,7 @@
 #  purpose: download environmental data and create a relational database table
 
 # Define JAVA_HOME
-Sys.setenv(JAVA_HOME="C:\\Program Files\\Java\\jdk-11.0.3/") # for 64-bit version
+# Sys.setenv(JAVA_HOME="C:\\Program Files\\Java\\jdk-11.0.3/") # for 64-bit version
 
 # Source functions
 source("src.R")
